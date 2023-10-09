@@ -7,4 +7,19 @@ function lengthCheck(stringName, maxlength) {
 
 lengthCheck('123', 3);
 
+function isPalindrome(string) {
+  string = string.toLowerCase().replaceAll(/ /g, '');
+  const stringArray = [...string];
+  const newArray = [];
+  stringArray.forEach((index) => {
+    newArray.unshift(index);
+  });
+  const reversedString = newArray.join('');
+  if (string === reversedString) {
+    //console.log('Это палиндром');
+    return string === reversedString;
+  }
+  //console.log('Это не палиндром');
+}
 
+isPalindrome('Hannah');
