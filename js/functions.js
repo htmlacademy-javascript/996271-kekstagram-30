@@ -20,10 +20,31 @@ function isPalindrome(string) {
   });
   const reversedString = newArray.join(''); // Создаем новую переменную и записываем результат из цикла
   if (string === reversedString) { // Сравниваем и возвращаем результат
-    //console.log('Это палиндром');
     return string === reversedString;
   }
-  //console.log('Это не палиндром');
 }
 
 isPalindrome('Hannah');
+
+
+// Функция для перезписи чисел из строки в целое число
+
+const getNumber = (string) => {
+  string = String(string);
+  const maxlength = string.length;
+  let number = '';
+  for (let i = 0; i < maxlength; i++) {
+    for (let j = 0; j < 10; j++) {
+      if (string.at(i) === String(j)) {
+        number = number + String(j);
+      }
+    }
+  }
+  number = parseInt(number, 10);
+  if (Number.isNaN(number)) {
+    return 'NaN';
+  }
+  return number;
+};
+
+getNumber('2023 год');
