@@ -1,17 +1,17 @@
 // Функция для проверки длины строки
 
-function lengthCheck(stringName, maxlength) {
-  if (stringName.length <= maxlength) {
-    return true;
-  }
-  return false;
-}
+const lengthCheck = (string, maxlength) => string.length <= maxlength;
 
-lengthCheck('123', 3);
+// Cтрока короче 20 символов
+console.log(lengthCheck('проверяемая строка', 20));
+// Длина строки ровно 18 символов
+console.log(lengthCheck('проверяемая строка', 18));
+// Строка длиннее 10 символов
+console.log(lengthCheck('проверяемая строка', 10));
 
 // Функция на проверку полиндрома
 
-function isPalindrome(string) {
+const isPalindrome = (string) => {
   string = string.toLowerCase().replaceAll(/ /g, ''); // Приводим строку к нижнему регистру и удаляем все пробелы
   const stringArray = [...string]; // Записываем строку в массив
   const newArray = []; // Создаем пустой массив
@@ -22,9 +22,17 @@ function isPalindrome(string) {
   if (string === reversedString) { // Сравниваем и возвращаем результат
     return string === reversedString;
   }
-}
+  return false;
+};
 
-isPalindrome('Hannah');
+// Строка является палиндромом
+console.log(isPalindrome('топот')); // true
+// Несмотря на разный регистр, тоже палиндром
+console.log(isPalindrome('ДовОд')); // true
+// Это не палиндром
+console.log(isPalindrome('Кекс')); // false
+// Это палиндром
+console.log(isPalindrome('Лёша на полке клопа нашёл ')); // true
 
 
 // Функция для перезписи чисел из строки в целое число
@@ -47,4 +55,11 @@ const getNumber = (string) => {
   return number;
 };
 
-getNumber('2023 год');
+console.log(getNumber('2023 год')); // 2023
+console.log(getNumber('ECMAScript 2022')); // 2022
+console.log(getNumber('1 кефир, 0.5 батона')); // 105
+console.log(getNumber('агент 007')); // 7
+console.log(getNumber('а я томат')); // NaN
+console.log(getNumber(2023)); // 2023
+console.log(getNumber(-1)); // 1
+console.log(getNumber(1.5)); // 15
