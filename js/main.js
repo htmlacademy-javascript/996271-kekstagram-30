@@ -35,10 +35,6 @@ const getRandomInteger = (a, b) => {
   return random;
 };
 
-// eslint-disable-next-line no-return-assign, no-const-assign
-// const getRandomArrayElement = (items) =>
-//   items[getRandomInteger = (0, items.length - 1)];
-
 const getRandomArrayElement = (items) => {
   const randomIndex = Math.floor(Math.random() * items.length);
   return items[randomIndex];
@@ -55,7 +51,7 @@ const createIdGenerator = () => {
 const generatedCommentId = createIdGenerator();
 
 const generateMessage = () => Array.from(
-  { length: getRandomInteger(1)},
+  { length: getRandomInteger(1, 2)},
   () => getRandomArrayElement(COMMENT_LIST),
 );
 
@@ -85,8 +81,4 @@ const getPicture = () => Array.from(
   (_, pictureIndex) => createPicture(pictureIndex + 1),
 );
 
-const result3 = getPicture();
-
-console.log(result3);
-
-debugger;
+getPicture();
