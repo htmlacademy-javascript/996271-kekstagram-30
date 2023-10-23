@@ -29,13 +29,20 @@ const NAME = [
 ];
 
 const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
+  const lower = Math.min(a, b);
+  const upper = Math.max(a, b);
+  const random = Math.floor(Math.random() * (upper - lower + 1)) + lower;
+  return random;
 };
 
-const getRandomArrayElement = (items) => items[getRandomInteger = (0, items.length - 1)];
+// eslint-disable-next-line no-return-assign, no-const-assign
+// const getRandomArrayElement = (items) =>
+//   items[getRandomInteger = (0, items.length - 1)];
+
+const getRandomArrayElement = (items) => {
+  const randomIndex = Math.floor(Math.random() * items.length);
+  return items[randomIndex];
+};
 
 const createIdGenerator = () => {
   let lastGeneratedId = 0;
@@ -51,3 +58,35 @@ const generateMessage = () => Array.from(
   { length: getRandomInteger(1)},
   () => getRandomArrayElement(COMMENT_LIST),
 );
+
+const createComment = () => ({
+  id: generatedCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  message: generateMessage(),
+  name: getRandomArrayElement(NAME)
+});
+
+const generatePhotoId = createIdGenerator();
+
+// eslint-disable-next-line no-unused-vars
+const createPicture = (index) => ({
+  id: generatePhotoId(1, PICTURE_COUNT),
+  url: `photo/${generatePhotoId(1, PICTURE_COUNT)}`,
+  description: getRandomArrayElement(DESC_LIST),
+  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+  comments: Array.from(
+    { length: getRandomInteger(0, COMMENT_COUNT) },
+    createComment
+  ),
+});
+
+const getPicture = () => Array.from(
+  { length: PICTURE_COUNT },
+  (_, pictureIndex) => createPicture(pictureIndex + 1),
+);
+
+const result3 = getPicture();
+
+console.log(result3);
+
+debugger;
