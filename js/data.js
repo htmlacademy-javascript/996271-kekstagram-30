@@ -1,3 +1,5 @@
+import { getRandomInteger, getRandomArrayElement, createIdGenerator } from './utils.js';
+
 const PICTURE_COUNT = 25;
 const AVATAR_COUNT = 6;
 const LIKE_MIN_COUNT = 15;
@@ -28,4 +30,37 @@ const NAME = [
   'Миша'
 ];
 
-export {PICTURE_COUNT, AVATAR_COUNT, LIKE_MIN_COUNT, LIKE_MAX_COUNT, COMMENT_COUNT, COMMENT_LIST, DESC_LIST, NAME};
+const generateMessage = () => Array.from(
+  { length: getRandomInteger(1, 2)},
+  () => getRandomArrayElement(COMMENT_LIST),
+);
+
+const generatedCommentId = createIdGenerator();
+const generatePhotoId = createIdGenerator();
+const generatePictureId = createIdGenerator();
+
+const createComment = () => ({
+  id: generatedCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  message: generateMessage(),
+  name: getRandomArrayElement(NAME)
+});
+
+// eslint-disable-next-line no-unused-vars
+const createPicture = (index) => ({
+  id: generatePhotoId(),
+  url: `photo/${generatePictureId()}.jpg`,
+  description: getRandomArrayElement(DESC_LIST),
+  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+  comments: Array.from(
+    { length: getRandomInteger(0, COMMENT_COUNT) },
+    createComment
+  ),
+});
+
+const getPicture = () => Array.from(
+  { length: PICTURE_COUNT },
+  (_, pictureIndex) => createPicture(pictureIndex + 1),
+);
+
+export { getPicture };
