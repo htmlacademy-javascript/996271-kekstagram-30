@@ -1,7 +1,7 @@
 import { getPicture } from './data.js';
 
 const picContainer = document.querySelector('.pictures');
-const picTemplate = document.querySelector('picture')
+const picTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
