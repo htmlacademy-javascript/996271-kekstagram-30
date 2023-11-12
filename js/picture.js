@@ -1,10 +1,10 @@
+const COMMENTS_COUNT_SHOW = 5;
+
 const bigPictureElement = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
 const closePictureButtonElenet = bigPictureElement.querySelector('.big-picture__cancel');
 
 // переменные коментов
-
-const COMMENTS_COUNT_SHOW = 5;
 
 const commentElement = document.querySelector('#comment')
   .content.querySelector('.social__comment');
@@ -64,7 +64,7 @@ const renderComments = () => {
   }
 
   const fragment = document.createDocumentFragment();
-  for (let i = 0; i < commentsCountShown.length; i++) {
+  for (let i = 0; i < comments.length; i++) {
     const comment = createComment(comments[i]);
     fragment.append(comment);
   }
