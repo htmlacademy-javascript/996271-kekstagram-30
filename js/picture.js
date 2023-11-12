@@ -68,7 +68,7 @@ const renderComments = () => {
     const comment = createComment(comments[i]);
     fragment.append(comment);
   }
-
+  // Проблема с циклом, не знаю как это решить
   commentsListElement.innerHTML = '';
   commentsListElement.append(fragment);
 
