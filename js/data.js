@@ -49,7 +49,7 @@ const createComment = () => ({
 // eslint-disable-next-line no-unused-vars
 const createPicture = (index) => ({
   id: generatePhotoId(),
-  url: `photo/${generatePictureId()}.jpg`,
+  url: `photos/${generatePictureId()}.jpg`,
   description: getRandomArrayElement(DESC_LIST),
   likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
   comments: Array.from(
