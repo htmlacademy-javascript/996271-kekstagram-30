@@ -8,6 +8,7 @@ import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const MAX_HASTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const textError = {
   INVALID_COUNT: `Максимум ${MAX_HASTAG_COUNT} хештегов.`,
   NOT_UNIQUE: 'Хештеги должны быть уникальными',
@@ -27,6 +28,8 @@ const fileField = form.querySelector('.img-upload__input');
 const hastagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
 const submitButton = form.querySelector('.img-upload__submit');
+const photoPreview = document.querySelector('.img-upload__preview img');
+const effectsPreview = document.querySelectorAll('.effects__preview');
 
 const toggleSubmitButton = (isDisabled) => {
   submitButton.disabled = isDisabled;
@@ -61,6 +64,13 @@ const isTextFieldFocused = () =>
   document.activeElement === hastagField ||
   document.activeElement === commentField;
 
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  const fileExtension = FILE_TYPES.map((type) => type.toLowerCase());
+
+  return fileExtension.includes(fileName.split('.').pop());
+};
+
 const normalizeTags = (tagString) => tagString
   .trim()
   .split(' ')
@@ -76,8 +86,8 @@ const hasUniqueTags = (value) => {
 };
 
 function onDocumentKeydown(evt) {
-  const isErroeMessageExists = () => Boolean(document.querySelector('.error'));
-  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErroeMessageExists) {
+  const isErrorMessageExists = () => Boolean(document.querySelector('.error'));
+  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideModalForm();
   }
@@ -88,6 +98,14 @@ const onCancelButtonClick = () => {
 };
 
 const onFileInputChange = () => {
+  const file = fileField.files[0];
+
+  if (file && isValidType(file)) {
+    photoPreview.src = URL.createObjectURL(file);
+    effectsPreview.forEach((preview) => {
+      preview.style.backgroundImage = `url('${photoPreview.src}')`;
+    });
+  }
   showModalForm();
 };
 
