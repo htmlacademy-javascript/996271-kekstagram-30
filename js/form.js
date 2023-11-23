@@ -75,9 +75,8 @@ const hasUniqueTags = (value) => {
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-const isErroeMessageExists = () => Boolean(document.querySelector('.error'));
-
 function onDocumentKeydown(evt) {
+  const isErroeMessageExists = () => Boolean(document.querySelector('.error'));
   if (evt.key === 'Escape' && !isTextFieldFocused() && !isErroeMessageExists) {
     evt.preventDefault();
     hideModalForm();
