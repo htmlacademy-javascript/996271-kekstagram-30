@@ -1,0 +1,73 @@
+import { renderGallery } from './gallery.js';
+import { debounce } from './utils.js';
+
+const filtersElement = document.querySelector('.img-filters');
+const filterForm = document.querySelector('.img-filters__form');
+const defaultFilterButton = filterForm.querySelector('#filter-default');
+const randomFilterButton = filterForm.querySelector('#filter-random');
+const discussedFilterButton = filterForm.querySelector('#filter-discussed');
+
+const MAX_RANDOM_FILTER = 10;
+
+const filterEnum = {
+  DEFAULT: 'default',
+  RANDOM: 'random',
+  DISCUSSED: 'discussed',
+};
+
+const getRandomIndex = (min, max) => {
+  const minRange = Math.ceil(Math.min(min, max));
+  const maxRange = Math.floor(Math.max(min, max));
+  const randomNumber = Math.floor(Math.random() * (maxRange - minRange + 1) + minRange);
+
+  return randomNumber;
+};
+
+const filterHandlers = {
+  [filterEnum.DEFAULT]: (data) => data,
+
+  [filterEnum.RANDOM]: (data) => {
+    const selectedIndexes = new Set();
+    const max = Math.min(MAX_RANDOM_FILTER, data.length);
+
+    while (selectedIndexes.size < max) {
+      const index = getRandomIndex(0, data.length - 1);
+
+      if (!selectedIndexes.has(index)) {
+        selectedIndexes.add(index);
+      }
+    }
+
+    return Array.from(selectedIndexes).map((index) => data[index]);
+  },
+
+  [filterEnum.DISCUSSED]: (data) =>
+    data.slice().sort((item1, item2) => item2.comments.length - item1.comments.length),
+};
+
+const repaint = (evt, filter, data) => {
+  const filteredData = filterHandlers[filter](data);
+  const pictures = document.querySelectorAll('.picture');
+  pictures.forEach((item) => item.remove());
+  renderGallery(filteredData);
+  const currentActiveElement = filterForm.querySelector('.img-filters__button--active');
+  currentActiveElement.classList.remove('img-filters__button--active');
+  evt.target.classList.add('img-filters__button--active');
+};
+
+const debounceRepaint = debounce(repaint);
+
+const initFilters = (data) => {
+  filtersElement.classList.remove('img-filters--inactive');
+  defaultFilterButton.addEventListener('click', (evt) => {
+    debounceRepaint(evt, filterEnum.DEFAULT, data);
+  });
+  randomFilterButton.addEventListener('click', (evt) => {
+    debounceRepaint(evt, filterEnum.RANDOM, data);
+  });
+  discussedFilterButton.addEventListener('click', (evt) => {
+    debounceRepaint(evt, filterEnum.DISCUSSED, data);
+  });
+};
+
+export { initFilters };

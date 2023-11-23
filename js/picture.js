@@ -64,7 +64,7 @@ const renderComments = () => {
   }
 
   const fragment = document.createDocumentFragment();
-  for (let i = 0; i < comments.length; i++) {
+  for (let i = 0; i < commentsCountShown; i++) {
     const comment = createComment(comments[i]);
     fragment.append(comment);
   }
