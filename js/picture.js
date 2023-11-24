@@ -19,7 +19,7 @@ let comments = [];
 const hidePicture = () => {
   commentsCountShown = 0;
   bigPictureElement.classList.add('hidden');
-  bodyElement.classList.remove('model-open');
+  bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
@@ -78,7 +78,7 @@ const renderComments = () => {
 
 const showPicture = (pictureData) => {
   bigPictureElement.classList.remove('hidden');
-  bodyElement.classList.add('model-open');
+  bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 
   comments = pictureData.comments;

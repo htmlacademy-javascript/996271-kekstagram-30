@@ -57,8 +57,22 @@ const repaint = (evt, filter, data) => {
 
 const debounceRepaint = debounce(repaint);
 
+const onFormFiltersClick = (evt) => {
+  const filtersButtonElements = filterForm.querySelectorAll('.img-filters__button');
+  filtersButtonElements.forEach((item) => {
+    item.classList.remove('img-filters__button--active');
+  });
+  if (evt.target.matches('.img-filters__button')) {
+    evt.target.classList.add('img-filters__button--active');
+  }
+};
+
+
 const initFilters = (data) => {
   filtersElement.classList.remove('img-filters--inactive');
+
+  filterForm.addEventListener('click', onFormFiltersClick);
+
   defaultFilterButton.addEventListener('click', (evt) => {
     debounceRepaint(evt, filterEnum.DEFAULT, data);
   });

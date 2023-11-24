@@ -46,7 +46,7 @@ const pristine = new Pristine(form, {
 
 const showModalForm = () => {
   overlay.classList.remove('hidden');
-  body.classList.add('model-open');
+  body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -55,7 +55,7 @@ const hideModalForm = () => {
   resetScale();
   resetEffect();
   pristine.reset();
-  body.classList.remove('model-open');
+  body.classList.remove('modal-open');
   overlay.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
