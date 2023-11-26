@@ -5,6 +5,7 @@ import {
 } from './effect.js';
 import { sendPictures } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
+import { isEscapeKey } from './utils.js';
 
 const MAX_HASTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -87,7 +88,7 @@ const hasUniqueTags = (value) => {
 
 function onDocumentKeydown(evt) {
   const isErrorMessageExists = () => Boolean(document.querySelector('.error'));
-  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageExists()) {
+  if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideModalForm();
   }

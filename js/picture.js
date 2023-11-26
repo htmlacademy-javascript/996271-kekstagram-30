@@ -1,8 +1,10 @@
+import { isEscapeKey } from './utils.js';
+
 const COMMENTS_COUNT_SHOW = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
-const closePictureButtonElenet = bigPictureElement.querySelector('.big-picture__cancel');
+const closePictureButtonElement = bigPictureElement.querySelector('.big-picture__cancel');
 
 // переменные коментов
 
@@ -28,13 +30,13 @@ const onClosePictureButtonClick = () => {
 };
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     hidePicture();
   }
 }
 
-closePictureButtonElenet.addEventListener('click', onClosePictureButtonClick);
+closePictureButtonElement.addEventListener('click', onClosePictureButtonClick);
 
 const renderPicture = ({ url, description, likes }) => {
   bigPictureElement.querySelector('.big-picture__img img').src = url;
@@ -68,7 +70,7 @@ const renderComments = () => {
     const comment = createComment(comments[i]);
     fragment.append(comment);
   }
-  // Проблема с циклом, не знаю как это решить
+
   commentsListElement.innerHTML = '';
   commentsListElement.append(fragment);
 
