@@ -8,9 +8,10 @@ const smallerButtonElement = modalElement.querySelector('.scale__control--smalle
 const biggerButtonElement = modalElement.querySelector('.scale__control--bigger');
 const scaleInputElement = modalElement.querySelector('.scale__control--value');
 const imageElement = modalElement.querySelector('.img-upload__preview img');
+const scaleNumber = 100;
 
 const scaleImage = (value) => {
-  imageElement.style.transform = `scale(${value / 100})`;
+  imageElement.style.transform = `scale(${value / scaleNumber})`;
   scaleInputElement.value = `${value}%`;
 };
 

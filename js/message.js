@@ -1,3 +1,5 @@
+import { isEscapeKey } from './utils.js';
+
 /* eslint-disable no-use-before-define */
 const successMessageElement = document.querySelector('#success')
   .content
@@ -19,7 +21,7 @@ const onCloseButtonClick = () => {
 };
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideMessage();
   }
